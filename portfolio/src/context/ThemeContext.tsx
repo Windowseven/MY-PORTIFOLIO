@@ -1,11 +1,15 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-type ThemeMode = 'light' | 'dark' | 'dev' | 'cyber';
+type Theme = 'light' | 'dark';
+type InterfaceMode = 'normal' | 'dev' | 'cyber';
 
 interface ThemeContextType {
-  mode: ThemeMode;
-  setMode: (mode: ThemeMode) => void;
+  theme: Theme;
+  setTheme: (theme: Theme) => void;
+  mode: InterfaceMode;
+  setMode: (mode: InterfaceMode) => void;
   toggleTheme: () => void;
+  toggleMode: () => void;
   isCommandPaletteOpen: boolean;
   setCommandPaletteOpen: (open: boolean) => void;
   isMobileMenuOpen: boolean;
@@ -15,9 +19,29 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [mode, setMode] = useState<ThemeMode>(() => {
-    const saved = localStorage.getItem('theme-mode');
-    return (saved as ThemeMode) || 'dark';
+  const [theme, setTheme] = useState<Theme>(() => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light' || savedTheme === 'dark') {
+      return savedTheme;
+    }
+
+    // Backward-compatible migration from legacy combined mode.
+    const legacy = localStorage.getItem('theme-mode');
+    return legacy === 'light' ? 'light' : 'dark';
+  });
+
+  const [mode, setMode] = useState<InterfaceMode>(() => {
+    const savedMode = localStorage.getItem('interface-mode');
+    if (savedMode === 'normal' || savedMode === 'dev' || savedMode === 'cyber') {
+      return savedMode;
+    }
+
+    // Backward-compatible migration from legacy combined mode.
+    const legacy = localStorage.getItem('theme-mode');
+    if (legacy === 'dev' || legacy === 'cyber') {
+      return legacy;
+    }
+    return 'normal';
   });
 
   const [isCommandPaletteOpen, setCommandPaletteOpen] = useState(false);
@@ -25,34 +49,35 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   useEffect(() => {
     const root = document.documentElement;
-    
-    // Reset classes and attributes
+
     root.classList.remove('light', 'dark');
+    root.classList.add(theme);
+
     root.removeAttribute('data-mode');
-
-    // Apply new state
-    if (mode === 'light') {
-      root.classList.add('light');
-    } else {
-      root.classList.add('dark');
-    }
-
-    if (mode === 'dev' || mode === 'cyber') {
+    if (mode !== 'normal') {
       root.setAttribute('data-mode', mode);
     }
 
-    localStorage.setItem('theme-mode', mode);
-  }, [mode]);
+    localStorage.setItem('theme', theme);
+    localStorage.setItem('interface-mode', mode);
+  }, [theme, mode]);
 
   const toggleTheme = () => {
-    setMode((prev) => (prev === 'light' ? 'dark' : 'light'));
+    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+  };
+
+  const toggleMode = () => {
+    setMode((prev) => (prev === 'normal' ? 'dev' : prev === 'dev' ? 'cyber' : 'normal'));
   };
 
   return (
     <ThemeContext.Provider value={{ 
+      theme,
+      setTheme,
       mode, 
       setMode, 
       toggleTheme,
+      toggleMode,
       isCommandPaletteOpen,
       setCommandPaletteOpen,
       isMobileMenuOpen,

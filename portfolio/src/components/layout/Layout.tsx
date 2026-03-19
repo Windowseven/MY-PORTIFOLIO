@@ -3,6 +3,7 @@ import { Sidebar } from './Sidebar';
 import { Header } from './Header';
 import { Footer } from './Footer';
 import { CommandPalette } from '../features/CommandPalette';
+import { Walkthrough, WalkthroughReplaySafeZone } from '../features/Walkthrough';
 import { useTheme } from '../../context/ThemeContext';
 import { cn } from '../ui/Button';
 
@@ -22,6 +23,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
       <Sidebar />
       <Header />
       <CommandPalette />
+      <Walkthrough />
       
       <main className="flex-1 md:pl-[70px] pt-16 transition-all duration-300">
         {children}
@@ -30,6 +32,8 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
       <div className="md:pl-[70px]">
         <Footer />
       </div>
+      
+      <WalkthroughReplaySafeZone />
     </div>
   );
 };

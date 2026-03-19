@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Home, User, Brain, Rocket, GraduationCap, FileText, Shield, BarChart, Mail, 
-  ChevronRight, Terminal, Lock, Moon, Sun, Search, X, Menu 
+  Terminal, Lock, Moon, Sun, Search, X, Laptop
 } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { cn } from '../ui/Button';
@@ -21,7 +21,7 @@ const menuItems = [
 
 export const Sidebar = () => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const { mode, setMode, setCommandPaletteOpen, isMobileMenuOpen, setMobileMenuOpen } = useTheme();
+  const { theme, mode, toggleTheme, toggleMode, setCommandPaletteOpen, isMobileMenuOpen, setMobileMenuOpen } = useTheme();
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -30,13 +30,6 @@ export const Sidebar = () => {
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
-
-  const toggleMode = () => {
-    if (mode === 'light') setMode('dark');
-    else if (mode === 'dark') setMode('dev');
-    else if (mode === 'dev') setMode('cyber');
-    else setMode('light');
-  };
 
   // Mobile Overlay
   if (isMobile && !isMobileMenuOpen) return null;
@@ -56,8 +49,15 @@ export const Sidebar = () => {
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
         className={cn(
           "fixed left-0 top-0 h-screen z-50 flex flex-col border-r backdrop-blur-xl transition-colors duration-300",
-          mode === 'cyber' ? "border-cyan-500/30 bg-black/90" : 
-          mode === 'dev' ? "border-green-500/30 bg-[#0D1117]" : 
+          mode === 'cyber'
+            ? theme === 'dark'
+              ? "border-cyan-500/30 bg-slate-950/90"
+              : "border-cyan-500/30 bg-cyan-50/90"
+            : mode === 'dev'
+              ? theme === 'dark'
+                ? "border-green-500/30 bg-[#0D1117]"
+                : "border-green-500/30 bg-emerald-50/90"
+              : 
           "border-white/10 bg-white/90 dark:bg-black/90",
           isMobile ? "w-[280px]" : ""
         )}
@@ -139,7 +139,7 @@ export const Sidebar = () => {
                 "flex items-center gap-4 p-3 rounded-lg transition-all group relative overflow-hidden",
                 "hover:bg-white/10 dark:hover:bg-white/5",
                 mode === 'cyber' && "hover:bg-cyan-500/10 hover:text-cyan-400",
-                mode === 'dev' && "hover:bg-green-500/10 hover:text-green-400 text-gray-300"
+                mode === 'dev' && (theme === 'dark' ? "hover:bg-green-500/10 hover:text-green-400 text-gray-300" : "hover:bg-green-500/10 hover:text-green-700 text-emerald-900")
               )}
             >
               <item.icon className="w-5 h-5 min-w-[20px]" />
@@ -174,8 +174,7 @@ export const Sidebar = () => {
             className="flex items-center gap-4 p-2 rounded-lg hover:bg-white/5 transition-colors w-full"
           >
             <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
-              {mode === 'light' ? <Sun className="w-4 h-4" /> :
-               mode === 'dark' ? <Moon className="w-4 h-4" /> :
+              {mode === 'normal' ? <Laptop className="w-4 h-4" /> :
                mode === 'dev' ? <Terminal className="w-4 h-4 text-green-400" /> :
                <Lock className="w-4 h-4 text-cyan-400" />}
             </div>
@@ -187,8 +186,30 @@ export const Sidebar = () => {
                   exit={{ opacity: 0 }}
                   className="text-xs font-medium text-left"
                 >
-                  <div className="opacity-50">Current Mode</div>
+                  <div className="opacity-50">Interface Mode</div>
                   <div className="capitalize">{mode}</div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </button>
+
+          <button
+            onClick={toggleTheme}
+            className="flex items-center gap-4 p-2 rounded-lg hover:bg-white/5 transition-colors w-full"
+          >
+            <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
+              {theme === 'light' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            </div>
+            <AnimatePresence>
+              {(isExpanded || isMobile) && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="text-xs font-medium text-left"
+                >
+                  <div className="opacity-50">Theme</div>
+                  <div className="capitalize">{theme}</div>
                 </motion.div>
               )}
             </AnimatePresence>

@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Search, Sun, Moon, Terminal, Shield, Menu, X, ChevronRight, 
-  Command, Laptop, Lock 
+  Laptop
 } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { cn } from '../ui/Button';
 
 export const Header = () => {
-  const { mode, setMode, toggleTheme, setCommandPaletteOpen, setMobileMenuOpen, isMobileMenuOpen } = useTheme();
+  const { theme, mode, toggleTheme, toggleMode, setCommandPaletteOpen, setMobileMenuOpen, isMobileMenuOpen } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('Home');
 
@@ -32,13 +32,6 @@ export const Header = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const toggleMode = () => {
-    if (mode === 'light') setMode('dark');
-    else if (mode === 'dark') setMode('dev');
-    else if (mode === 'dev') setMode('cyber');
-    else setMode('light');
-  };
 
   return (
     <motion.header
@@ -83,6 +76,7 @@ export const Header = () => {
         <div className="flex items-center gap-2 md:gap-4">
           {/* Search */}
           <button
+            id="header-search-btn"
             onClick={() => setCommandPaletteOpen(true)}
             className={cn(
               "flex items-center gap-2 px-3 py-1.5 rounded-md border transition-all group",
@@ -109,7 +103,7 @@ export const Header = () => {
             className="p-2 rounded-md hover:bg-accent transition-colors relative overflow-hidden"
           >
             <AnimatePresence mode="wait">
-              {mode === 'light' ? (
+              {theme === 'light' ? (
                 <motion.div key="sun" initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -20, opacity: 0 }}>
                   <Sun className="w-5 h-5" />
                 </motion.div>
@@ -123,7 +117,8 @@ export const Header = () => {
 
           {/* Mode Switch */}
           <button
-            onClick={() => setMode(mode === 'dev' ? 'cyber' : mode === 'cyber' ? 'dark' : 'dev')}
+            id="header-mode-btn"
+            onClick={toggleMode}
             className={cn(
               "p-2 rounded-md transition-colors relative group",
               mode === 'dev' ? "bg-green-500/10 text-green-400" :

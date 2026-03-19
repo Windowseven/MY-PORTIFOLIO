@@ -18,7 +18,7 @@ function MailIcon(props: any) { return <svg {...props} xmlns="http://www.w3.org/
 export const CommandPalette = () => {
   const [query, setQuery] = useState('');
   const [history, setHistory] = useState<Array<{ type: 'input' | 'output', content: React.ReactNode }>>([]);
-  const { mode, setMode, isCommandPaletteOpen, setCommandPaletteOpen } = useTheme();
+  const { theme, setTheme, mode, setMode, isCommandPaletteOpen, setCommandPaletteOpen } = useTheme();
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -232,11 +232,12 @@ export const CommandPalette = () => {
     { id: 'show-philosophy', label: 'show philosophy', icon: FileText, keywords: ['show philosophy'], type: 'interactive', action: () => 'Security-first architecture, maintainable code, practical automation, measurable outcomes.' },
     { id: 'stack', label: 'stack', icon: Code, keywords: ['stack'], type: 'interactive', action: () => 'React + TypeScript + Vite + Tailwind + Node.js + MySQL + Linux' },
     { id: 'dependencies', label: 'dependencies', icon: Github, keywords: ['dependencies'], type: 'interactive', action: () => 'react, vite, tailwindcss, framer-motion, lucide-react, react-router-dom, i18next' },
-    { id: 'env', label: 'env', icon: Terminal, keywords: ['env'], type: 'interactive', action: () => 'MODE=' + mode + ' | Runtime=Browser | Build=Vite | Theme=light/dark/dev/cyber' },
+    { id: 'env', label: 'env', icon: Terminal, keywords: ['env'], type: 'interactive', action: () => `THEME=${theme} | MODE=${mode} | Runtime=Browser | Build=Vite` },
     { id: 'mode-dev', label: 'mode dev', icon: Terminal, keywords: ['mode dev'], type: 'mode', action: () => { setMode('dev'); return 'Developer mode active.'; } },
     { id: 'mode-cyber', label: 'mode cyber', icon: Shield, keywords: ['mode cyber'], type: 'mode', action: () => { setMode('cyber'); return 'Cyber mode active.'; } },
-    { id: 'mode-light', label: 'mode light', icon: Sun, keywords: ['mode light'], type: 'mode', action: () => { setMode('light'); return 'Light mode active.'; } },
-    { id: 'mode-dark', label: 'mode dark', icon: Moon, keywords: ['mode dark'], type: 'mode', action: () => { setMode('dark'); return 'Dark mode active.'; } },
+    { id: 'mode-normal', label: 'mode normal', icon: Monitor, keywords: ['mode normal'], type: 'mode', action: () => { setMode('normal'); return 'Normal mode active.'; } },
+    { id: 'theme-light', label: 'theme light', icon: Sun, keywords: ['theme light', 'mode light'], type: 'mode', action: () => { setTheme('light'); return 'Light theme active.'; } },
+    { id: 'theme-dark', label: 'theme dark', icon: Moon, keywords: ['theme dark', 'mode dark'], type: 'mode', action: () => { setTheme('dark'); return 'Dark theme active.'; } },
     { id: 'goto-projects', label: 'goto projects', icon: Briefcase, keywords: ['goto projects'], type: 'navigation', action: () => { window.location.hash = '#projects'; return 'Navigated to Projects'; } },
     { id: 'goto-about', label: 'goto about', icon: User, keywords: ['goto about'], type: 'navigation', action: () => { window.location.hash = '#about'; return 'Navigated to About'; } },
     { id: 'goto-contact', label: 'goto contact', icon: MailIcon, keywords: ['goto contact'], type: 'navigation', action: () => { window.location.hash = '#contact'; return 'Navigated to Contact'; } },
@@ -300,8 +301,9 @@ dependencies
 env
 mode dev
 mode cyber
-mode light
-mode dark
+mode normal
+theme light
+theme dark
 goto projects
 goto about
 goto contact
@@ -373,17 +375,33 @@ help`),
         onClick={(e) => e.stopPropagation()}
         className={cn(
           "relative w-full max-w-3xl h-[600px] rounded-xl shadow-2xl overflow-hidden flex flex-col font-mono text-sm z-[100000] pointer-events-auto",
-          mode === 'cyber' ? "bg-slate-900/95 border border-cyan-500/50 shadow-[0_0_30px_rgba(0,245,255,0.2)]" :
-          mode === 'dev' ? "bg-[#0D1117]/95 border border-green-500/50 shadow-[0_0_30px_rgba(34,197,94,0.2)]" :
-          "bg-slate-900/95 border border-slate-700 shadow-2xl text-gray-200"
+          mode === 'cyber'
+            ? theme === 'dark'
+              ? "bg-slate-900/95 border border-cyan-500/50 shadow-[0_0_30px_rgba(0,245,255,0.2)] text-gray-100"
+              : "bg-white/95 border border-cyan-500/40 shadow-[0_0_20px_rgba(6,182,212,0.15)] text-slate-900"
+            : mode === 'dev'
+              ? theme === 'dark'
+                ? "bg-[#0D1117]/95 border border-green-500/50 shadow-[0_0_30px_rgba(34,197,94,0.2)] text-gray-100"
+                : "bg-white/95 border border-green-500/40 shadow-[0_0_20px_rgba(34,197,94,0.15)] text-slate-900"
+              : theme === 'dark'
+                ? "bg-slate-900/95 border border-slate-700 shadow-2xl text-gray-200"
+                : "bg-white/95 border border-slate-300 shadow-2xl text-slate-900"
         )}
       >
         {/* Terminal Header */}
         <div className={cn(
           "flex items-center justify-between px-4 py-2 border-b select-none",
-          mode === 'cyber' ? "bg-cyan-950/30 border-cyan-500/30" :
-          mode === 'dev' ? "bg-green-950/30 border-green-500/30" :
-          "bg-slate-800/50 border-slate-700"
+          mode === 'cyber'
+            ? theme === 'dark'
+              ? "bg-cyan-950/30 border-cyan-500/30"
+              : "bg-cyan-50 border-cyan-500/30"
+            : mode === 'dev'
+              ? theme === 'dark'
+                ? "bg-green-950/30 border-green-500/30"
+                : "bg-emerald-50 border-green-500/30"
+              : theme === 'dark'
+                ? "bg-slate-800/50 border-slate-700"
+                : "bg-slate-100/70 border-slate-300"
         )}>
           <div className="flex items-center gap-2">
             <div className="flex gap-1.5">
@@ -391,10 +409,10 @@ help`),
               <div className="w-3 h-3 rounded-full bg-yellow-500" />
               <div className="w-3 h-3 rounded-full bg-green-500" />
             </div>
-            <span className="ml-3 text-xs opacity-50">user@lespikius:~</span>
+            <span className={cn("ml-3 text-xs opacity-60", theme === 'dark' ? "text-gray-300" : "text-slate-700")}>user@lespikius:~</span>
           </div>
           <button onClick={() => setCommandPaletteOpen(false)}>
-            <X className="w-4 h-4 opacity-50 hover:opacity-100" />
+            <X className={cn("w-4 h-4 opacity-50 hover:opacity-100", theme === 'dark' ? "text-gray-200" : "text-slate-700")} />
           </button>
         </div>
 
@@ -404,28 +422,28 @@ help`),
           className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent"
         >
           {/* Welcome Message */}
-          <div className="text-gray-400 mb-4">
+          <div className={cn("mb-4", theme === 'dark' ? "text-gray-400" : "text-slate-600")}>
             Welcome to Lespikius Terminal v2.0.0<br/>
-            Type <span className="text-green-400">'help'</span> to see available commands.
+            Type <span className={cn(mode === 'cyber' ? "text-cyan-500" : mode === 'dev' ? "text-green-500" : theme === 'dark' ? "text-blue-400" : "text-blue-600")}>'help'</span> to see available commands.
           </div>
 
           {/* History */}
           {history.map((entry, i) => (
             <div key={i} className="space-y-1">
               {entry.type === 'input' && (
-                <div className="flex items-center gap-2 text-gray-400">
+                <div className={cn("flex items-center gap-2", theme === 'dark' ? "text-gray-400" : "text-slate-600")}>
                   <span className={cn(
                     "font-bold",
                     mode === 'cyber' ? "text-cyan-400" :
                     mode === 'dev' ? "text-green-400" :
-                    "text-blue-400"
+                    theme === 'dark' ? "text-blue-400" : "text-blue-600"
                   )}>➜</span>
                   <span>~</span>
-                  <span className="text-white">{entry.content}</span>
+                  <span className={theme === 'dark' ? "text-white" : "text-slate-900"}>{entry.content}</span>
                 </div>
               )}
               {entry.type === 'output' && (
-                <div className="pl-6 text-gray-300">
+                <div className={cn("pl-6", theme === 'dark' ? "text-gray-300" : "text-slate-700")}>
                   {entry.content}
                 </div>
               )}
@@ -439,7 +457,7 @@ help`),
             "p-4 border-t cursor-text relative z-[100002]",
             mode === 'cyber' ? "border-cyan-500/30" :
             mode === 'dev' ? "border-green-500/30" :
-            "border-slate-700"
+            theme === 'dark' ? "border-slate-700" : "border-slate-300"
           )}
           onClick={() => inputRef.current?.focus()}
         >
@@ -448,9 +466,9 @@ help`),
               "font-bold animate-pulse select-none",
               mode === 'cyber' ? "text-cyan-400" :
               mode === 'dev' ? "text-green-400" :
-              "text-blue-400"
+              theme === 'dark' ? "text-blue-400" : "text-blue-600"
             )}>➜</span>
-            <span className="text-gray-400 select-none">~</span>
+            <span className={cn("select-none", theme === 'dark' ? "text-gray-400" : "text-slate-600")}>~</span>
             <input
               ref={inputRef}
               type="text"
@@ -461,7 +479,12 @@ help`),
                   handleInputSubmit(e);
                 }
               }}
-              className="flex-1 bg-transparent border-none outline-none text-white placeholder:text-gray-600 caret-white w-full h-full py-1 font-mono"
+              className={cn(
+                "flex-1 bg-transparent border-none outline-none w-full h-full py-1 font-mono",
+                theme === 'dark'
+                  ? "text-white placeholder:text-gray-600 caret-white"
+                  : "text-slate-900 placeholder:text-slate-500 caret-slate-900"
+              )}
               placeholder="Type a command..."
               autoComplete="off"
               autoCorrect="off"
@@ -483,7 +506,9 @@ help`),
                     "text-xs px-2 py-1 rounded border transition-colors",
                     mode === 'cyber' ? "border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10" :
                     mode === 'dev' ? "border-green-500/30 text-green-400 hover:bg-green-500/10" :
-                    "border-slate-600 text-gray-400 hover:bg-slate-800"
+                    theme === 'dark'
+                      ? "border-slate-600 text-gray-400 hover:bg-slate-800"
+                      : "border-slate-300 text-slate-700 hover:bg-slate-100"
                   )}
                 >
                   {cmd.label}

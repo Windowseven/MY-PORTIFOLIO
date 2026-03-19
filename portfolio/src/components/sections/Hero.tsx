@@ -66,7 +66,7 @@ const TypingEffect = () => {
 };
 
 export const Hero = () => {
-  const { mode, setCommandPaletteOpen } = useTheme();
+  const { theme, mode, setCommandPaletteOpen } = useTheme();
 
   return (
     <section id="hero" className="min-h-screen flex flex-col justify-center relative overflow-hidden pt-20">
@@ -160,7 +160,11 @@ export const Hero = () => {
             <div className={cn(
               "relative w-80 h-96 rounded-2xl overflow-hidden transition-all duration-500",
               mode === 'cyber' ? "border-2 border-cyan-500 shadow-[0_0_30px_rgba(0,245,255,0.3)]" :
-              mode === 'dev' ? "border border-green-500/50 bg-black/80 font-mono" :
+              mode === 'dev'
+                ? theme === 'dark'
+                  ? "border border-green-500/50 bg-black/80 font-mono"
+                  : "border border-green-500/50 bg-emerald-50/85 font-mono"
+                :
               "glass border border-white/10 shadow-2xl"
             )}>
               
@@ -188,7 +192,7 @@ export const Hero = () => {
                 {/* Profile Image */}
                 <div className={cn(
                   "w-40 h-40 rounded-2xl mb-6 overflow-hidden transition-all relative",
-                  mode === 'cyber' ? "ring-2 ring-cyan-500 ring-offset-4 ring-offset-black" :
+                  mode === 'cyber' ? "ring-2 ring-cyan-500 ring-offset-4 ring-offset-background" :
                   mode === 'dev' ? "rounded-none border border-green-500" :
                   "shadow-lg"
                 )}>

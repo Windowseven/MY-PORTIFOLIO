@@ -5,7 +5,7 @@ import { useTheme } from '../../context/ThemeContext';
 import { cn } from '../ui/Button';
 
 export const Footer = () => {
-  const { mode } = useTheme();
+  const { theme, mode } = useTheme();
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
@@ -23,9 +23,17 @@ export const Footer = () => {
   return (
     <footer className={cn(
       "relative pt-20 pb-10 overflow-hidden transition-colors duration-300",
-      mode === 'cyber' ? "bg-[#02040a]" : 
-      mode === 'dev' ? "bg-[#050a14]" : 
-      "bg-secondary/20"
+      theme === 'dark'
+        ? mode === 'cyber'
+          ? "bg-slate-950/90"
+          : mode === 'dev'
+            ? "bg-emerald-950/40"
+            : "bg-secondary/20"
+        : mode === 'cyber'
+          ? "bg-cyan-50/80"
+          : mode === 'dev'
+            ? "bg-emerald-50/80"
+            : "bg-secondary/20"
     )}>
       {/* Background Effects */}
       {mode === 'cyber' && (
