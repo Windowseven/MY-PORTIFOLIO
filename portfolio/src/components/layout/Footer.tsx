@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Github, Linkedin, Mail, ArrowUp, Terminal } from 'lucide-react';
+import { Github, Linkedin, Mail, ArrowUp, Terminal, MessageCircle } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { cn } from '../ui/Button';
 
@@ -83,11 +83,14 @@ export const Footer = () => {
               <a href="https://github.com/Windowseven" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
                 <Github className="w-4 h-4" /> Windowseven
               </a>
-              <a href="https://linkedin.com/in/Lespikius Junior" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
-                <Linkedin className="w-4 h-4" /> Lespikius Junior
+              <a href="https://linkedin.com/in/junior-lespikius" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
+                <Linkedin className="w-4 h-4" /> Junior Lespikius
               </a>
               <a href="mailto:lespikiusjunior@gmail.com" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
                 <Mail className="w-4 h-4" /> lespikiusjunior@gmail.com
+              </a>
+              <a href="https://wa.me/255766183998" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
+                <MessageCircle className="w-4 h-4" /> Whatsapp
               </a>
             </div>
           </div>

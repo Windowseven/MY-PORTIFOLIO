@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
-import { Github, Linkedin, Mail, Send, Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Github, Linkedin, Mail, Send, Loader2, CheckCircle2, AlertCircle, MessageCircle } from 'lucide-react';
 
 const API_URL = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '');
 
@@ -95,6 +95,16 @@ export const Contact = () => {
                 <div>
                   <div className="text-sm text-muted-foreground">LinkedIn</div>
                   <div className="font-medium">Junior Lespikius</div>
+                </div>
+              </a>
+
+              <a href="https://wa.me/255766183998" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-xl bg-secondary/50 hover:bg-secondary transition-colors">
+                <div className="p-3 rounded-full bg-primary/10 text-primary">
+                  <MessageCircle className="w-6 h-6" />
+                </div>
+                <div>
+                  <div className="text-sm text-muted-foreground">WhatsApp</div>
+                  <div className="font-medium"></div>
                 </div>
               </a>
             </div>
