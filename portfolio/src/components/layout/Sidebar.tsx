@@ -56,23 +56,22 @@ export const Sidebar = () => {
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
         className={cn(
           "fixed left-0 top-0 h-screen z-50 flex flex-col border-r backdrop-blur-xl transition-colors duration-300",
+          // Dark: original deep backgrounds. Light: CSS variable bg-background.
           mode === 'cyber'
-            ? theme === 'dark'
-              ? "border-cyan-500/30 bg-slate-950/90"
-              : "border-cyan-500/30 bg-cyan-50/90"
+            ? theme === 'dark' ? "border-cyan-500/30 bg-slate-950/90"
+                               : "border-cyan-500/30 bg-background/95"
             : mode === 'dev'
-              ? theme === 'dark'
-                ? "border-green-500/30 bg-[#0D1117]"
-                : "border-green-500/30 bg-emerald-50/90"
-              : 
-          "border-white/10 bg-white/90 dark:bg-black/90",
+            ? theme === 'dark' ? "border-green-500/30 bg-[#0D1117]/95"
+                               : "border-green-500/30 bg-background/95"
+            : theme === 'dark' ? "border-border bg-background/95"
+                               : "border-border/40 bg-background/95",
           isMobile ? "w-[280px]" : ""
         )}
         onMouseEnter={() => !isMobile && setIsExpanded(true)}
         onMouseLeave={() => !isMobile && setIsExpanded(false)}
       >
         {/* Logo Area */}
-        <div className="h-16 flex items-center justify-between px-4 border-b border-white/5">
+        <div className="h-16 flex items-center justify-between px-4 border-b border-border/30">
           <AnimatePresence mode="wait">
             {(isExpanded || isMobile) ? (
               <motion.span
@@ -105,7 +104,7 @@ export const Sidebar = () => {
         </div>
 
         {/* Search / Command Trigger */}
-        <div className="p-2 border-b border-white/5">
+        <div className="p-2 border-b border-border/30">
           <button
             onClick={() => {
               setCommandPaletteOpen(true);
@@ -113,9 +112,9 @@ export const Sidebar = () => {
             }}
             className={cn(
               "w-full flex items-center gap-4 p-3 rounded-lg transition-all group relative overflow-hidden",
-              "hover:bg-white/10 dark:hover:bg-white/5",
+              "hover:bg-accent",
               mode === 'cyber' && "hover:bg-cyan-500/10 hover:text-cyan-400",
-              mode === 'dev' && "hover:bg-green-500/10 hover:text-green-400"
+              mode === 'dev' && "hover:bg-green-500/10 hover:text-primary"
             )}
           >
             <Search className="w-5 h-5 min-w-[20px]" />
@@ -144,9 +143,9 @@ export const Sidebar = () => {
               onClick={() => isMobile && setMobileMenuOpen(false)}
               className={cn(
                 "flex items-center gap-4 p-3 rounded-lg transition-all group relative overflow-hidden",
-                "hover:bg-white/10 dark:hover:bg-white/5",
+                "hover:bg-accent text-foreground",
                 mode === 'cyber' && "hover:bg-cyan-500/10 hover:text-cyan-400",
-                mode === 'dev' && (theme === 'dark' ? "hover:bg-green-500/10 hover:text-green-400 text-gray-300" : "hover:bg-green-500/10 hover:text-green-700 text-emerald-900")
+                mode === 'dev' && "hover:bg-green-500/10 hover:text-primary"
               )}
             >
               <item.icon className="w-5 h-5 min-w-[20px]" />
@@ -175,12 +174,12 @@ export const Sidebar = () => {
         </nav>
 
         {/* Bottom Actions */}
-        <div className="p-4 border-t border-white/5 flex flex-col gap-2">
+        <div className="p-4 border-t border-border/30 flex flex-col gap-2">
           <button
             onClick={toggleMode}
-            className="flex items-center gap-4 p-2 rounded-lg hover:bg-white/5 transition-colors w-full"
+            className="flex items-center gap-4 p-2 rounded-lg hover:bg-accent transition-colors w-full"
           >
-            <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-full bg-accent flex items-center justify-center">
               {mode === 'normal' ? <Laptop className="w-4 h-4" /> :
                mode === 'dev' ? <Terminal className="w-4 h-4 text-green-400" /> :
                <Lock className="w-4 h-4 text-cyan-400" />}
@@ -202,9 +201,9 @@ export const Sidebar = () => {
 
           <button
             onClick={toggleTheme}
-            className="flex items-center gap-4 p-2 rounded-lg hover:bg-white/5 transition-colors w-full"
+            className="flex items-center gap-4 p-2 rounded-lg hover:bg-accent transition-colors w-full"
           >
-            <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-full bg-accent flex items-center justify-center">
               {theme === 'light' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </div>
             <AnimatePresence>

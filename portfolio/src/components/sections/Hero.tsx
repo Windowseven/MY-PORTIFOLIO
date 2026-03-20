@@ -163,9 +163,8 @@ export const Hero = () => {
               mode === 'dev'
                 ? theme === 'dark'
                   ? "border border-green-500/50 bg-black/80 font-mono"
-                  : "border border-green-500/50 bg-emerald-50/85 font-mono"
-                :
-              "glass border border-white/10 shadow-2xl"
+                  : "border border-green-500/50 bg-background/90 font-mono"
+                : "glass border border-border/20 shadow-2xl"
             )}>
               
               {/* Dev Mode Terminal Header */}
@@ -230,7 +229,7 @@ export const Hero = () => {
       </div>
 
       {/* Identity Strip */}
-      <div className="w-full border-y border-white/5 bg-black/20 backdrop-blur-sm py-3 mt-12">
+      <div className={cn("w-full border-y backdrop-blur-sm py-3 mt-12", theme === 'dark' ? "border-white/5 bg-black/20" : "border-border/30 bg-background/80")}>
         <div className="container mx-auto px-6 flex flex-wrap justify-center gap-8 text-sm font-medium text-muted-foreground">
           <div className={cn("flex items-center gap-2", mode === 'dev' && "text-green-400")}>
             <Terminal className="w-4 h-4" /> Developer Mode {mode === 'dev' ? 'Active' : 'Ready'}
@@ -245,7 +244,7 @@ export const Hero = () => {
       </div>
 
       {/* Tech Stack Visual */}
-      <div className="w-full bg-background/50 py-8 overflow-hidden border-b border-white/5">
+      <div className={cn("w-full py-8 overflow-hidden border-b", theme === 'dark' ? "bg-background/50 border-white/5" : "bg-background/50 border-border/20")}>
         <div className="container mx-auto px-6">
           <p className="text-center text-sm text-muted-foreground mb-6 uppercase tracking-widest">Powering Next-Gen Systems</p>
           <div className="flex flex-wrap justify-center gap-8 md:gap-16 opacity-70 hover:opacity-100 transition-opacity">

@@ -53,6 +53,8 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   useEffect(() => {
     const root = document.documentElement;
 
+    // Remove both, then add whichever is active
+    // This ensures .light[data-mode="dev"] and .dark[data-mode="dev"] selectors work
     root.classList.remove('light', 'dark');
     root.classList.add(theme);
 

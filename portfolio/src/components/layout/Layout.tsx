@@ -8,13 +8,14 @@ import { useTheme } from '../../context/ThemeContext';
 import { cn } from '../ui/Button';
 
 export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { mode } = useTheme();
+  const { mode, theme } = useTheme();
 
   return (
     <div className={cn(
       "min-h-screen transition-colors duration-300 flex flex-col",
-      mode === 'cyber' ? "bg-[#050A14] text-cyan-50" :
-      mode === 'dev' ? "bg-[#0B1120] text-green-50" :
+      // Dark: restore original deep aesthetics. Light: CSS variables take over.
+      theme === 'dark' && mode === 'cyber' ? "bg-[#050A14] text-cyan-50" :
+      theme === 'dark' && mode === 'dev'   ? "bg-[#0B1120] text-green-50" :
       "bg-background text-foreground"
     )}>
       {/* Scanline Overlay for Cyber Mode */}
