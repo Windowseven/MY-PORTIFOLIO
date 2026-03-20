@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Search, Sun, Moon, Terminal, Shield, Menu, X, ChevronRight, 
-  Laptop
+  Laptop, Sparkles
 } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { cn } from '../ui/Button';
 
 export const Header = () => {
-  const { theme, mode, toggleTheme, toggleMode, setCommandPaletteOpen, setMobileMenuOpen, isMobileMenuOpen } = useTheme();
+  const { theme, mode, toggleTheme, toggleMode, setCommandPaletteOpen, setMobileMenuOpen, isMobileMenuOpen, isWinnOpen, setWinnOpen } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('Home');
 
@@ -113,6 +113,36 @@ export const Header = () => {
                 </motion.div>
               )}
             </AnimatePresence>
+          </button>
+
+          {/* Winn AI Button */}
+          <button
+            onClick={() => setWinnOpen(!isWinnOpen)}
+            className={cn(
+              "flex items-center gap-2 px-3 py-1.5 rounded-md border transition-all group relative",
+              isWinnOpen
+                ? mode === 'cyber' ? "border-cyan-500/60 bg-cyan-500/10 text-cyan-400" :
+                  mode === 'dev'   ? "border-green-500/60 bg-green-500/10 text-green-400" :
+                  "border-primary/60 bg-primary/10 text-primary"
+                : mode === 'cyber' ? "border-cyan-500/30 hover:bg-cyan-500/10 hover:text-cyan-400 text-muted-foreground" :
+                  mode === 'dev'   ? "border-green-500/30 hover:bg-green-500/10 hover:text-green-400 text-muted-foreground" :
+                  "border-border hover:bg-accent text-muted-foreground"
+            )}
+            aria-label="Toggle Winn AI assistant"
+            title="Winn — AI Assistant"
+          >
+            <Sparkles className="w-4 h-4" />
+            <span className="hidden md:inline text-xs font-semibold font-mono tracking-wide">Winn</span>
+            {/* Pulse dot when closed */}
+            {!isWinnOpen && (
+              <span className={cn(
+                "absolute -top-1 -right-1 w-2 h-2 rounded-full",
+                mode === 'cyber' ? "bg-cyan-400" :
+                mode === 'dev'   ? "bg-green-400" :
+                "bg-blue-500",
+                "animate-pulse"
+              )} />
+            )}
           </button>
 
           {/* Mode Switch */}

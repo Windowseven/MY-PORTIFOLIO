@@ -14,6 +14,8 @@ interface ThemeContextType {
   setCommandPaletteOpen: (open: boolean) => void;
   isMobileMenuOpen: boolean;
   setMobileMenuOpen: (open: boolean) => void;
+  isWinnOpen: boolean;
+  setWinnOpen: (open: boolean) => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -46,6 +48,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const [isCommandPaletteOpen, setCommandPaletteOpen] = useState(false);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isWinnOpen, setWinnOpen] = useState(false);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -81,7 +84,9 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       isCommandPaletteOpen,
       setCommandPaletteOpen,
       isMobileMenuOpen,
-      setMobileMenuOpen
+      setMobileMenuOpen,
+      isWinnOpen,
+      setWinnOpen,
     }}>
       {children}
     </ThemeContext.Provider>

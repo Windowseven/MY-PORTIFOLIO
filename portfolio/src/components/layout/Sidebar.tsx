@@ -21,7 +21,7 @@ const menuItems = [
 
 export const Sidebar = () => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const { theme, mode, toggleTheme, toggleMode, setCommandPaletteOpen, isMobileMenuOpen, setMobileMenuOpen } = useTheme();
+  const { theme, mode, toggleTheme, toggleMode, setCommandPaletteOpen, isMobileMenuOpen, setMobileMenuOpen, setWinnOpen } = useTheme();
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -33,6 +33,13 @@ export const Sidebar = () => {
 
   // Mobile Overlay
   if (isMobile && !isMobileMenuOpen) return null;
+
+  // Mutex: close Winn whenever sidebar becomes visible
+  useEffect(() => {
+    if (isMobileMenuOpen || !isMobile) {
+      setWinnOpen(false);
+    }
+  }, [isMobileMenuOpen]);
 
   return (
     <>
