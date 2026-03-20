@@ -4,7 +4,7 @@ services:
     env: node
     plan: free
     autoDeploy: true
-    buildCommand: npm install --prefix portfolio && npm install --prefix server && npm run build --prefix portfolio && npm run build --prefix server
+    buildCommand: npm install --include=dev --prefix portfolio && npm install --include=dev --prefix server && npm run build --prefix portfolio && npm run build --prefix server
     startCommand: npm start --prefix server
     envVars:
       - key: NODE_ENV
