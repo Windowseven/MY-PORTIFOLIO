@@ -31,15 +31,15 @@ export const Sidebar = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Mobile Overlay
-  if (isMobile && !isMobileMenuOpen) return null;
-
   // Mutex: close Winn whenever sidebar becomes visible
   useEffect(() => {
     if (isMobileMenuOpen || !isMobile) {
       setWinnOpen(false);
     }
-  }, [isMobileMenuOpen]);
+  }, [isMobile, isMobileMenuOpen, setWinnOpen]);
+
+  // Mobile Overlay
+  if (isMobile && !isMobileMenuOpen) return null;
 
   return (
     <>
