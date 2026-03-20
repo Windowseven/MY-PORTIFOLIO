@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: windowseven-portfolio
+    env: node
+    plan: free
+    autoDeploy: true
+    buildCommand: npm install --prefix portfolio && npm install --prefix server && npm run build --prefix portfolio && npm run build --prefix server
+    startCommand: npm start --prefix server
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: AI_MODEL
+        value: gemini-2.5-flash-lite-preview-06-17
+      - key: AI_MAX_INPUT_CHARS
+        value: "3000"
+      - key: EMAIL_USER
+        sync: false
+      - key: EMAIL_PASS
+        sync: false
+      - key: EMAIL_TO
+        sync: false

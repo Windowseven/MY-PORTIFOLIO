@@ -25,8 +25,8 @@ interface Message {
   content: string;
 }
 
-// Backend URL — set VITE_API_URL in portfolio/.env for production
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+// Backend URL — leave empty in production for same-origin Render deploys.
+const API_URL = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '');
 
 // ─── Quick actions ─────────────────────────────────────────────────────────────
 

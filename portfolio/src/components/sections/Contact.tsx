@@ -4,6 +4,8 @@ import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { Github, Linkedin, Mail, Send, Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
 
+const API_URL = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '');
+
 export const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -25,7 +27,7 @@ export const Contact = () => {
     setErrorMessage('');
 
     try {
-      const response = await fetch('http://localhost:5000/api/contact', {
+      const response = await fetch(`${API_URL}/api/contact`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
