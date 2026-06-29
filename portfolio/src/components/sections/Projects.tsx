@@ -9,7 +9,7 @@ const projects = [
     title: "windowsevenBOT",
     description: "Multi-tenant WhatsApp Bot-as-a-Service platform with 100+ commands. Handles group management, media downloads, and automation — built on Baileys with a Next.js web dashboard and Argon2/JWT/TOTP authentication.",
     tags: ["Node.js", "Baileys", "JavaScript", "Next.js", "JWT"],
-    image: "/assets/windowsevenbot.png",
+    image: "/assets/windowsevenbot.jpeg",
     link: null,
     github: "https://github.com/Windowseven/windowsevenBOT",
     features: ["100+ Commands", "Group Management", "Multi-tenant BaaS"]
@@ -18,7 +18,7 @@ const projects = [
     title: "FieldSync",
     description: "Real-time, role-based field operations management platform for survey teams, census work, and community outreach. Features live GPS tracking, project-scoped dashboards for 4 roles, and WebSocket-powered updates.",
     tags: ["Next.js", "TypeScript", "Socket.io", "Tailwind CSS", "JWT"],
-    image: "/assets/field-sync.png",
+    image: "/assets/field-sync.jpeg",
     link: "https://field-sync.onrender.com",
     github: "https://github.com/Windowseven/field-sync",
     features: ["Role-based Dashboards", "Real-time GPS", "Live Demo"]
