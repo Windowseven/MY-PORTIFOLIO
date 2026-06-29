@@ -10,7 +10,7 @@ const projects = [
     description: "Multi-tenant WhatsApp Bot-as-a-Service platform with 100+ commands. Handles group management, media downloads, and automation — built on Baileys with a Next.js web dashboard and Argon2/JWT/TOTP authentication.",
     tags: ["Node.js", "Baileys", "JavaScript", "Next.js", "JWT"],
     image: "/assets/windowsevenbot.png",
-    link: "#",
+    link: null,
     github: "https://github.com/Windowseven/windowsevenBOT",
     features: ["100+ Commands", "Group Management", "Multi-tenant BaaS"]
   },
@@ -19,7 +19,7 @@ const projects = [
     description: "Real-time, role-based field operations management platform for survey teams, census work, and community outreach. Features live GPS tracking, project-scoped dashboards for 4 roles, and WebSocket-powered updates.",
     tags: ["Next.js", "TypeScript", "Socket.io", "Tailwind CSS", "JWT"],
     image: "/assets/field-sync.png",
-    link: "https://v0-modified-admindashboard-field-op.vercel.app",
+    link: "https://field-sync.onrender.com",
     github: "https://github.com/Windowseven/field-sync",
     features: ["Role-based Dashboards", "Real-time GPS", "Live Demo"]
   },
@@ -28,7 +28,7 @@ const projects = [
     description: "Interactive CLI toolkit designed to teach Linux commands from beginner to advanced in a safe, structured, and fun way — entirely in a guided shell environment. Built for cybersecurity learners and CS students.",
     tags: ["Shell Scripting", "Bash", "Linux", "Cybersecurity"],
     image: "/assets/linux-buddy.png",
-    link: "#",
+    link: null,
     github: "https://github.com/Windowseven/linux-buddy-cyberlabs",
     features: ["Command Simulation", "Safe Sandbox", "Education-focused"]
   },
@@ -37,7 +37,7 @@ const projects = [
     description: "Voucher-based WiFi authentication and billing system for small ISPs, hotels, and internet cafes in East Africa. Transforms a normal router into a business-ready service platform with client tracking and usage analytics.",
     tags: ["HTML", "JavaScript", "MySQL", "CSS"],
     image: "/assets/wifi-billing.png",
-    link: "#",
+    link: null,
     github: "https://github.com/Windowseven/WIFI-BILLING-SYSTEM",
     features: ["Voucher Generation", "Bandwidth Control", "Usage Analytics"]
   }
@@ -120,9 +120,11 @@ export const Projects = () => {
                     <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1">
                       <Github className="w-4 h-4" /> Source Code
                     </a>
-                    <a href={project.link} target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1">
-                      <ExternalLink className="w-4 h-4" /> Live Demo
-                    </a>
+                    {project.link && (
+                      <a href={project.link} target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1">
+                        <ExternalLink className="w-4 h-4" /> Live Demo
+                      </a>
+                    )}
                   </div>
                 </div>
               </Card>
