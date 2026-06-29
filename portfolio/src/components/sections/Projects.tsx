@@ -6,40 +6,40 @@ import { ExternalLink, Github, ArrowRight } from 'lucide-react';
 
 const projects = [
   {
-    title: "Smart Class System",
-    description: "A class management system for tracking attendance with geolocation security. Only student devices physically around the classroom are marked present — eliminating attendance cheating.",
-    tags: ["Node.js", "Express", "React", "Tailwind CSS", "MySQL"],
-    image: "/assets/smart-class.png",
+    title: "windowsevenBOT",
+    description: "Multi-tenant WhatsApp Bot-as-a-Service platform with 100+ commands. Handles group management, media downloads, and automation — built on Baileys with a Next.js web dashboard and Argon2/JWT/TOTP authentication.",
+    tags: ["Node.js", "Baileys", "JavaScript", "Next.js", "JWT"],
+    image: "/assets/windowsevenbot.png",
     link: "#",
-    github: "#",
-    features: ["Geolocation Attendance", "Anti-proxy Logic", "Admin Analytics"]
+    github: "https://github.com/Windowseven/windowsevenBOT",
+    features: ["100+ Commands", "Group Management", "Multi-tenant BaaS"]
   },
   {
-    title: "Linux Buddy (Shell)",
-    description: "Interactive command-line toolkit designed to teach Linux commands from beginner to advanced in a safe, structured, and funny way — entirely in Swahili.",
-    tags: ["Shell Scripting", "Bash", "Linux"],
+    title: "FieldSync",
+    description: "Real-time, role-based field operations management platform for survey teams, census work, and community outreach. Features live GPS tracking, project-scoped dashboards for 4 roles, and WebSocket-powered updates.",
+    tags: ["Next.js", "TypeScript", "Socket.io", "Tailwind CSS", "JWT"],
+    image: "/assets/field-sync.png",
+    link: "https://v0-modified-admindashboard-field-op.vercel.app",
+    github: "https://github.com/Windowseven/field-sync",
+    features: ["Role-based Dashboards", "Real-time GPS", "Live Demo"]
+  },
+  {
+    title: "Linux Buddy (CyberLabs)",
+    description: "Interactive CLI toolkit designed to teach Linux commands from beginner to advanced in a safe, structured, and fun way — entirely in a guided shell environment. Built for cybersecurity learners and CS students.",
+    tags: ["Shell Scripting", "Bash", "Linux", "Cybersecurity"],
     image: "/assets/linux-buddy.png",
     link: "#",
-    github: "#",
-    features: ["Command Simulation", "Safe Sandbox", "Humor-based Learning"]
+    github: "https://github.com/Windowseven/linux-buddy-cyberlabs",
+    features: ["Command Simulation", "Safe Sandbox", "Education-focused"]
   },
   {
     title: "WiFi Billing System",
-    description: "Comprehensive voucher-based WiFi authentication & billing system. Transforms a normal WiFi router into a business-ready service platform.",
-    tags: ["HTML", "JS", "Shell", "MySQL"],
+    description: "Voucher-based WiFi authentication and billing system for small ISPs, hotels, and internet cafes in East Africa. Transforms a normal router into a business-ready service platform with client tracking and usage analytics.",
+    tags: ["HTML", "JavaScript", "MySQL", "CSS"],
     image: "/assets/wifi-billing.png",
     link: "#",
-    github: "#",
-    features: ["Voucher Generation", "Bandwidth Control", "Expiry Tracking"]
-  },
-  {
-    title: "Event Booking System",
-    description: "A secure platform for booking events with real-time availability and secure payment processing integration.",
-    tags: ["React", "Node.js", "Stripe", "MySQL"],
-    image: "/assets/event-booking.png",
-    link: "#",
-    github: "#",
-    features: ["Real-time Booking", "Secure Payments", "Ticket Generation"]
+    github: "https://github.com/Windowseven/WIFI-BILLING-SYSTEM",
+    features: ["Voucher Generation", "Bandwidth Control", "Usage Analytics"]
   }
 ];
 
@@ -117,10 +117,10 @@ export const Projects = () => {
                   </div>
 
                   <div className="flex items-center justify-between">
-                    <a href={project.github} className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1">
+                    <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1">
                       <Github className="w-4 h-4" /> Source Code
                     </a>
-                    <a href={project.link} className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1">
+                    <a href={project.link} target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1">
                       <ExternalLink className="w-4 h-4" /> Live Demo
                     </a>
                   </div>
